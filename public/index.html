@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        table {
+            width: 100%;
+            border: 1px solid black;
+        }
+
+        table td {
+            border: 1px solid black;
+        }
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/dust-full-0.3.0.js"></script>
+    <script type="text/javascript" src="javascripts/compiled_templates.js"></script>
+    <script type="text/javascript">
+        dust.helpers.v = function(chunk, context, bodies, params){
+            chunk.write(params.key[params.value]);
+            return chunk;
+        };
+
+        dust.filters.log = function(value) {
+            console.log(value);
+            return value;
+        };
+
+        $(
+            function(){
+                var data = [
+                    {
+                        id: 1,
+                        name: 'alon',
+                        active: true
+                    },
+                    {
+                        id: 2,
+                        name: 'etai',
+                        active: false
+                    }
+                ];
+
+                var schema = {
+                    cells:[
+                        {value:'id'},
+                        {value:'name'},
+                        {value:'active'}
+                    ]
+                };
+
+                dust.render('row', schema, function(err, html){
+                    console.log(html);
+
+                    var compiled = dust.compile(html, 'data');
+                    dust.loadSource(compiled);
+
+                    $.each(data, function(index, row){
+                        dust.render('data', row, function(err, html){
+                            $('body table').append(html);
+                        })
+                    })
+                })
+            }
+        )
+    </script>
+</head>
+<body>
+<table>
+
+</table>
+</body>
+</html>

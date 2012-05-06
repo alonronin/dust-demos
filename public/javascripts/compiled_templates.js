@@ -1,0 +1,1 @@
+(function(){dust.register("row",body_0);function body_0(chk,ctx){return chk.write("<tr>").section(ctx.get("cells"),ctx,{"block":body_1},null).write("</tr>");}function body_1(chk,ctx){return chk.write("<td>{").reference(ctx.get("value"),ctx,"h").write("}</td>");}return body_0;})();
